@@ -60,6 +60,14 @@ def parse_rMATS_SE(filename,FDR_cutoff,PSI_cutoff,read_cutoff):
         sample_2_sc_numbers = [int(x) for x in sample_2_sc_list]
         sample_2_average_read = np.mean(sample_2_ic_numbers) + np.mean(sample_2_sc_numbers)
         item.insert(18,sample_2_average_read)    
+    #add new column for enhance or silence effect
+    for item in rMATS_list[0:1]:
+        item.append("splicing_factor_effect")
+    for item in rMATS_list[1:]:
+        if float(item[-1]) < 0:
+            item.append("silence")
+        else:
+            item.append("enhance")
     #write this file as a csv for easier import into pandas. Then import it
     with open('tempfile','wb') as temp:
         tempwriter = csv.writer(temp,delimiter='\t')
