@@ -68,6 +68,23 @@ def parse_rMATS_SE(filename,FDR_cutoff,PSI_cutoff,read_cutoff):
             item.append("silence")
         else:
             item.append("enhance")
+    #add new columns to have the mean of the PSI values since it is a comma separate list
+    for item in rMATS_list[0:1]:
+        item.insert(24,"inc_level_1_mean")
+    for item in rMATS_list[1:]:
+        mean = item[23].strip().split(',')
+        mean_no_na = filter(lambda x: x != "NA",mean)
+        mean_numbers = [float(i) for i in mean_no_na]
+        mean_value = np.mean(mean_numbers)
+        item.insert(24,mean_value)
+    for item in rMATS_list[0:1]:
+        item.insert(26,"inc_level_2_mean")
+    for item in rMATS_list[1:]:
+        mean = item[25].strip().split(',')
+        mean_no_na = filter(lambda x: x != "NA",mean)
+        mean_numbers = [float(i) for i in mean_no_na]
+        mean_value = np.mean(mean_numbers)
+        item.insert(26,mean_value)
     #write this file as a csv for easier import into pandas. Then import it
     with open('tempfile','wb') as temp:
         tempwriter = csv.writer(temp,delimiter='\t')
