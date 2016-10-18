@@ -103,9 +103,9 @@ def parse_rMATS_SE(filename,FDR_cutoff,PSI_cutoff,read_cutoff):
     #now write this to a text file and an Excel
     with open(filename.split('.')[0]+'_FDR_'+str(FDR_cutoff)+'_dPSI_'+str(PSI_cutoff)+'_read_cutoff_'+str(read_cutoff)+'.txt','w') as txt_file:
         rMATS_df.to_csv(txt_file,sep='\t',index=False)
-    writer = pd.ExcelWriter(filename.split('.')[0]+'_FDR_'+str(FDR_cutoff)+'_dPSI_'+str(PSI_cutoff)+'_read_cutoff_'+str(read_cutoff)+'.xlsx')
-    rMATS_df.to_excel(writer,index=False)
-    writer.save()
+    #writer = pd.ExcelWriter(filename.split('.')[0]+'_FDR_'+str(FDR_cutoff)+'_dPSI_'+str(PSI_cutoff)+'_read_cutoff_'+str(read_cutoff)+'.xlsx')
+    #rMATS_df.to_excel(writer,index=False)
+    #writer.save()
     print('Done')
 
 def main():
